@@ -1,26 +1,34 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <contact-form></contact-form>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TheForm from "./components/TheForm";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    "contact-form": TheForm
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import url('https://fonts.googleapis.com/css?family=Inconsolata|Oswald');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  #app {
+    background-image: linear-gradient(to bottom right, #5466b9, #2a8ea3);
+    width: 100vw;
+    height: 100vh;
+  }
 </style>
