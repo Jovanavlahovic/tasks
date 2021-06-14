@@ -5,7 +5,8 @@
            :class="classObject"
       >
       </div>
-      <div class="text-xs absolute">{{ orderNumber }}</div>
+      <div class="text-xs absolute" v-if="displayOrderNumber">{{ orderNumber }}</div>
+      <div class="absolute " v-if="displayChecked"><font-awesome-icon icon="check"></font-awesome-icon></div>
     </div>
     <div class="form-control pl-9 flex flex-col w-4/5 relative">
       <label class="text-gray-400 text-xs md:text-sm pb-1"> {{ label }} </label>
@@ -36,13 +37,16 @@ export default {
     classObject: function () {
       return {
         "loader": this.isInputLoading,
-        "shadow-lg": !this.isInputLoading
+        "shadow-lg": !this.isInputLoading,
+        "done": this.displayChecked
       }
     }
   },
   data() {
     return {
       isInputLoading: false,
+      displayOrderNumber: true,
+      displayChecked: false
     }
   },
    methods: {
@@ -50,7 +54,12 @@ export default {
        console.log(value);
      },
      onInputBlur() {
-
+        this.isInputLoading = true;
+        setTimeout(() => {
+          this.isInputLoading = false;
+          this.displayOrderNumber = false;
+          this.displayChecked = true;
+        }, 2000);
      }
    }
 }
@@ -89,7 +98,7 @@ export default {
     border-radius: 50%;
   }
 
-  .text-xs {
+  .text-xs, .checked{
     color: #2094f3;
   }
 
@@ -98,9 +107,12 @@ export default {
     animation: spin 2s linear infinite;
   }
 
+  .done {
+    background-color: #2094f3;
+  }
+
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
-
 </style>
