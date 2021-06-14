@@ -20,15 +20,18 @@ export default {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-
-  html, body {
+    color: #fff;
     font-family: 'Roboto', sans-serif;
   }
 
-  #app {
+  html, body {
+    width: 100%;
+    height: 100%;
     background-image: linear-gradient(to bottom right, #5466b9, #2a8ea3);
-    width: 100vw;
-    height: 100vh;
+  }
+
+  #app{
+    width: 100%;
+    height: 100%;
   }
 </style>
