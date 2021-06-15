@@ -68,9 +68,6 @@ input:focus ~ .border {
   height: 2px;
 }
 
-@media (max-width: 860px) {
-
-}
 
 .order-number-checkbox {
   width: 25px;
