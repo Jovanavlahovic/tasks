@@ -46,6 +46,7 @@ export default {
       required: true
     }
   },
+  emits: ['update:modelValue'],
   computed: {
     classObject() {
       return {
@@ -68,8 +69,8 @@ export default {
     }
   },
    methods: {
-    onInput(value) {
-       console.log(value);
+    onInput(input) {
+       this.$emit('update:modelValue', input.target.value);
      },
      onInputBlur(input) {
         this.isInputLoading = true;
@@ -90,7 +91,7 @@ export default {
      },
      onInputFocus() {
       this.isInputFocused = true;
-     }
+     },
    }
 }
 </script>

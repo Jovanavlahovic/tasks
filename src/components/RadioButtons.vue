@@ -54,7 +54,9 @@ export default {
   methods: {
     inputChecked(value) {
       this.isInputLoading = true;
-      console.log(value);
+
+      this.$emit('update:modelValue', value);
+
       setTimeout(() => {
         this.isInputLoading = false;
         this.displayOrderNumber = false;

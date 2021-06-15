@@ -4,7 +4,7 @@
       <div class="loader-container flex justify-center items-center">
         <circle-progress
             class="loader"
-            :percent="40"
+            :percent="progressData"
             :size="50"
             :border-width="5"
             :border-bg-width="5"
@@ -12,7 +12,7 @@
             fill-color="white"
             :hide-text="false"
         />
-        <p class="absolute progress-value">50%</p>
+        <p class="absolute progress-value">{{ progressData }}%</p>
       </div>
       <div class="pl-4 md:pl-6">
         <p class="state">New York State</p>
@@ -21,10 +21,32 @@
     </header>
     <main >
       <form class="shadow-md rounded" @submit.prevent="onSubmit()">
-        <input-field input-type="text" label="First Name" order-number="1" v-model="firstName"/>
-        <input-field input-type="text" label="Last Name" order-number="2" v-model="lastName"/>
-        <input-field input-type="text" label="Email Adress" order-number="3" v-model="email"/>
-        <radio-buttons></radio-buttons>
+        <input-field
+            input-type="text"
+            label="First Name"
+            order-number="1"
+            :modelValue="firstName"
+            @update:model-value="onNameInput($event)"
+        />
+        <input-field
+            input-type="text"
+            label="Last Name"
+            order-number="2"
+            :modelValue="lastName"
+            @update:model-value="onLastNameInput($event)"
+        />
+        <input-field
+            input-type="text"
+            label="Email Adress"
+            order-number="3"
+            :modelValue="email"
+            @update:model-value="onEmailInput($event)"
+        />
+        <radio-buttons
+            :modelValue="availableTime"
+            @update:model-value="onAvailableTimeSelected($event)"
+
+        ></radio-buttons>
         <button class="submit-btn">Submit</button>
       </form>
     </main>
@@ -48,6 +70,12 @@ export default {
       firstName: '',
       lastName: '',
       email: '',
+      availableTime: '',
+      progressData: 0,
+      nameUpdated: false,
+      lastNameUpdated: false,
+      emailUpdated: false,
+      availableTimeUpdated: false,
     }
   },
   computed: {
@@ -57,7 +85,51 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log(this.firstName)
+      let contactData = {
+        "name": this.firstName,
+        "lastName": this.lastName,
+        "email": this.email,
+        "availableTime": this.availableTime
+      };
+      console.log(contactData);
+    },
+    onNameInput(value) {
+      this.firstName = value;
+
+      if (this.nameUpdated) return;
+
+      this.nameUpdated = true;
+      this.increaseProgressData();
+    },
+    onLastNameInput(value){
+      this.lastName = value;
+
+      if(this.lastNameUpdated) return;
+
+      this.lastNameUpdated = true;
+      this.increaseProgressData();
+    },
+    onEmailInput(value){
+      this.email = value;
+
+      if(this.emailUpdated) return;
+
+      this.emailUpdated = true;
+      this.increaseProgressData();
+
+    },
+    onAvailableTimeSelected(value){
+      this.availableTime = value;
+
+      if(this.availableTimeUpdated) return;
+
+      this.availableTimeUpdated = true;
+      this.increaseProgressData();
+    },
+    increaseProgressData() {
+      setTimeout(() => {
+        this.progressData += 25;
+      }, 1000);
     }
   }
 }
