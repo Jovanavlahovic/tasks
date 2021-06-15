@@ -5,12 +5,18 @@
            :class="classObject"
       >
       </div>
-      <div class="text-xs absolute" v-if="displayOrderNumber">{{ orderNumber }}</div>
+      <div class="text-xs absolute order-number" v-if="displayOrderNumber">{{ orderNumber }}</div>
       <div class="absolute " v-if="displayChecked"><font-awesome-icon icon="check"></font-awesome-icon></div>
     </div>
     <div class="form-control pl-9 flex flex-col w-4/5 relative">
-      <label class="text-gray-400 text-xs md:text-sm pb-1"> {{ label }} </label>
-      <input :type="inputType" class="focus:outline-none transition" @input="onInput($event)" @blur="onInputBlur()">
+      <label :for="inputType" :class="labelColor" class="text-gray-200 text-xs md:text-sm pb-1"> {{ label }} </label>
+      <input
+          :type="inputType"
+          :name="inputType"
+          class="focus:outline-none transition"
+          @input="onInput($event)"
+          @blur="onInputBlur()"
+          @focus="onInputFocus()">
       <div class="border"></div>
     </div>
   </div>
@@ -34,19 +40,23 @@ export default {
     }
   },
   computed: {
-    classObject: function () {
+    classObject() {
       return {
         "loader": this.isInputLoading,
         "shadow-lg": !this.isInputLoading,
         "done": this.displayChecked
       }
+    },
+    labelColor() {
+      return this.isInputFocused ? 'labelColor' : '';
     }
   },
   data() {
     return {
       isInputLoading: false,
       displayOrderNumber: true,
-      displayChecked: false
+      displayChecked: false,
+      isInputFocused: false
     }
   },
    methods: {
@@ -55,11 +65,15 @@ export default {
      },
      onInputBlur() {
         this.isInputLoading = true;
+        this.isInputFocused = false;
         setTimeout(() => {
           this.isInputLoading = false;
           this.displayOrderNumber = false;
           this.displayChecked = true;
         }, 2000);
+     },
+     onInputFocus() {
+      this.isInputFocused = true;
      }
    }
 }
@@ -69,6 +83,10 @@ export default {
   input {
     border-bottom: 1px solid rgba(156, 163, 175, 0.6);
     color: rgb(156, 163, 175);
+  }
+
+  label {
+    color: gray;
   }
 
   .border {
@@ -86,9 +104,21 @@ export default {
     color: #2094f3;
   }
 
+  label, input:focus {
+    opacity: .7;
+  }
+
+  input:focus label {
+    color: #2094f3;
+  }
+
   input:focus ~ .border {
-    width: 90%;
+    width: 95%;
     height: 2px;
+  }
+  
+  @media (max-width: 860px) {
+    
   }
 
   .order-number-checkbox {
@@ -98,7 +128,7 @@ export default {
     border-radius: 50%;
   }
 
-  .text-xs, .checked{
+  .order-number, .checked, .labelColor{
     color: #2094f3;
   }
 
