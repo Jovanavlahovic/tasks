@@ -105,6 +105,9 @@ export default {
     color: gray;
   }
 
+  small {
+    font-size: .7rem;
+  }
   .border {
     position: absolute;
     width: 0%;
@@ -129,33 +132,16 @@ export default {
   }
 
   input:focus ~ .border {
-    width: 95%;
+    width: 85%;
     height: 2px;
   }
 
-  @media (max-width: 860px) {
-
-  }
-
-  .order-number-checkbox {
-    width: 25px;
-    height: 25px;
-    padding: 10px;
-    border-radius: 50%;
-  }
-
-  .order-number, .checked, .labelColor{
+  .labelColor{
     color: #2094f3;
   }
 
-  .loader {
-    border-top: 1px solid #3498db; /* Blue */
-    animation: spin 2s linear infinite;
-  }
-
-  .done {
-    background-color: #2094f3;
-    opacity: .9;
+  small {
+    font-size: .6rem;
   }
 
   @keyframes spin {

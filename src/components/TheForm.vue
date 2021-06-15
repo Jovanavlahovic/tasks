@@ -20,11 +20,12 @@
       </div>
     </header>
     <main >
-      <form class="shadow-md rounded">
+      <form class="shadow-md rounded" @submit.prevent="onSubmit()">
         <input-field input-type="text" label="First Name" order-number="1" v-model="firstName"/>
         <input-field input-type="text" label="Last Name" order-number="2" v-model="lastName"/>
         <input-field input-type="text" label="Email Adress" order-number="3" v-model="email"/>
         <radio-buttons></radio-buttons>
+        <button class="submit-btn">Submit</button>
       </form>
     </main>
   </div>
@@ -52,6 +53,11 @@ export default {
   computed: {
     emptyColor() {
       return "rgba(255,255,255, 0.3)";
+    }
+  },
+  methods: {
+    onSubmit() {
+      console.log(this.firstName)
     }
   }
 }
@@ -115,6 +121,17 @@ export default {
 
   form {
     background-color: #fff;
+  }
+
+  .submit-btn {
+    background-image: linear-gradient(to bottom right, #2094f3, #2a8ea3);
+    padding: 5px 10px;
+    border-radius: 5%;
+    width: 30%;
+    position: relative;
+    left: 35%;
+    margin-bottom: 20px;
+    cursor: pointer;
   }
 
 </style>
