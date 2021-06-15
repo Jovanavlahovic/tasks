@@ -92,6 +92,7 @@ export default {
         "availableTime": this.availableTime
       };
       console.log(contactData);
+      alert(`Thank you for submitting, ${this.firstName[0].toUpperCase()+this.firstName.slice(1)}!`);
     },
     onNameInput(value) {
       this.firstName = value;

@@ -15,7 +15,7 @@
         </label>
         <label class="radio">
           <input type="radio" name="r" value="tuesday">
-          <span  class="text-gray-500" @click="inputChecked('tuesday')">Tuesday 3px</span>
+          <span  class="text-gray-500" @click="inputChecked('tuesday')">Tuesday 3pm</span>
         </label>
       </div>
     </div>
