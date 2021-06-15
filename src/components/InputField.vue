@@ -1,30 +1,37 @@
 <template>
-  <div class="flex flex-wrap p-6 h-[3.23rem] items-center">
-    <div class="order-container sm:pl-3 md:pl-5 flex items-center justify-center">
-      <div class="order-number-checkbox px-4"
-           :class="classObject"
-      >
-      </div>
-      <div class="text-xs absolute order-number" v-if="displayOrderNumber">{{ orderNumber }}</div>
-      <div class="absolute " v-if="displayChecked"><font-awesome-icon icon="check"></font-awesome-icon></div>
-    </div>
+  <div class="flex flex-wrap px-4 py-6 h-[3.23rem] items-center">
+    <form-control-order-number
+        :class-object="classObject"
+        :display-order-number="displayOrderNumber"
+        :display-checked="displayChecked"
+        :order-number="orderNumber"
+    ></form-control-order-number>
     <div class="form-control pl-9 flex flex-col w-4/5 relative">
-      <label :for="inputType" :class="labelColor" class="text-gray-200 text-xs md:text-sm pb-1"> {{ label }} </label>
+      <label :for="inputType" :class="labelColor" class="text-gray-200 text-xs md:text-sm pb-1"> {{ label }}
+        <span class="text-red-500">*</span>
+        <small class="text-red-500" v-if="isInputInvalid">This field cannot be empty</small>
+      </label>
       <input
           :type="inputType"
           :name="inputType"
           class="focus:outline-none transition"
           @input="onInput($event)"
-          @blur="onInputBlur()"
-          @focus="onInputFocus()">
+          @blur="onInputBlur($event)"
+          @focus="onInputFocus()"
+          ref="input"
+      >
       <div class="border"></div>
     </div>
   </div>
 </template>
 
 <script>
+import FormControlOrderNumber from "./FormControlOrderNumber";
 
 export default {
+  components: {
+    FormControlOrderNumber
+  },
   props: {
     orderNumber: {
       type: String,
@@ -56,21 +63,30 @@ export default {
       isInputLoading: false,
       displayOrderNumber: true,
       displayChecked: false,
-      isInputFocused: false
+      isInputFocused: false,
+      isInputInvalid: false
     }
   },
    methods: {
     onInput(value) {
        console.log(value);
      },
-     onInputBlur() {
+     onInputBlur(input) {
         this.isInputLoading = true;
         this.isInputFocused = false;
-        setTimeout(() => {
+
+       if(input.target.value === '') {
+         this.isInputInvalid = true;
+         this.$refs.input.focus();
+         return;
+       }
+
+       setTimeout(() => {
           this.isInputLoading = false;
           this.displayOrderNumber = false;
           this.displayChecked = true;
-        }, 2000);
+         this.isInputInvalid = false;
+       }, 1700);
      },
      onInputFocus() {
       this.isInputFocused = true;
@@ -116,9 +132,9 @@ export default {
     width: 95%;
     height: 2px;
   }
-  
+
   @media (max-width: 860px) {
-    
+
   }
 
   .order-number-checkbox {
@@ -139,10 +155,12 @@ export default {
 
   .done {
     background-color: #2094f3;
+    opacity: .9;
   }
 
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
 </style>

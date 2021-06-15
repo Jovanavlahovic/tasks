@@ -24,6 +24,7 @@
         <input-field input-type="text" label="First Name" order-number="1" v-model="firstName"/>
         <input-field input-type="text" label="Last Name" order-number="2" v-model="lastName"/>
         <input-field input-type="text" label="Email Adress" order-number="3" v-model="email"/>
+        <radio-buttons></radio-buttons>
       </form>
     </main>
   </div>
@@ -32,12 +33,14 @@
 <script>
 import CircleProgress from "vue3-circle-progress";
 import InputField from "./InputField";
+import RadioButtons from "./RadioButtons";
 
 export default {
   name: "Form",
   components: {
     CircleProgress,
-    InputField
+    InputField,
+    RadioButtons
   },
   data() {
     return {
@@ -59,7 +62,7 @@ export default {
     position: relative;
     width: 60%;
     margin: 0 auto;
-    top: 10%;
+    top: 5%;
   }
 
   header {
